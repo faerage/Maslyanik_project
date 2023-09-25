@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ukr" xml:lang="ukr"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="© Maslyanik Oleksandr, 2023">
+<meta name="dcterms.date" content="2023-10-06">
+<meta name="description" content="Документ зроблено за допомогою Quarto">
+
+<title>Лабораторна робота №4. Логічні значення. Умовне виконання. Цикли</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="lab_4_Maslianyk_files/libs/clipboard/clipboard.min.js"></script>
+<script src="lab_4_Maslianyk_files/libs/quarto-html/quarto.js"></script>
+<script src="lab_4_Maslianyk_files/libs/quarto-html/popper.min.js"></script>
+<script src="lab_4_Maslianyk_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="lab_4_Maslianyk_files/libs/quarto-html/anchor.min.js"></script>
+<link href="lab_4_Maslianyk_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="lab_4_Maslianyk_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="lab_4_Maslianyk_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="lab_4_Maslianyk_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="lab_4_Maslianyk_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#оператори-порівняння" id="toc-оператори-порівняння" class="nav-link active" data-scroll-target="#оператори-порівняння">Оператори порівняння</a>
+  <ul class="collapse">
+  <li><a href="#завдання-1" id="toc-завдання-1" class="nav-link" data-scroll-target="#завдання-1">Завдання 1</a></li>
+  <li><a href="#завдання-2" id="toc-завдання-2" class="nav-link" data-scroll-target="#завдання-2">Завдання 2</a></li>
+  <li><a href="#завдання-3" id="toc-завдання-3" class="nav-link" data-scroll-target="#завдання-3">Завдання 3</a></li>
+  </ul></li>
+  <li><a href="#конструкції-if-else-та-if-elif-else" id="toc-конструкції-if-else-та-if-elif-else" class="nav-link" data-scroll-target="#конструкції-if-else-та-if-elif-else">Конструкції <code>if-else</code> та <code>if-elif-else</code></a>
+  <ul class="collapse">
+  <li><a href="#завдання-4" id="toc-завдання-4" class="nav-link" data-scroll-target="#завдання-4">Завдання 4</a></li>
+  <li><a href="#завдання-5" id="toc-завдання-5" class="nav-link" data-scroll-target="#завдання-5">Завдання 5</a></li>
+  </ul></li>
+  <li><a href="#організація-циклів-за-допомогою-while" id="toc-організація-циклів-за-допомогою-while" class="nav-link" data-scroll-target="#організація-циклів-за-допомогою-while">Організація циклів за допомогою <code>while</code></a>
+  <ul class="collapse">
+  <li><a href="#завдання-6" id="toc-завдання-6" class="nav-link" data-scroll-target="#завдання-6">Завдання 6</a></li>
+  </ul></li>
+  <li><a href="#організація-циклів-за-допомогою-for" id="toc-організація-циклів-за-допомогою-for" class="nav-link" data-scroll-target="#організація-циклів-за-допомогою-for">Організація циклів за допомогою <code>for</code></a>
+  <ul class="collapse">
+  <li><a href="#завдання-7" id="toc-завдання-7" class="nav-link" data-scroll-target="#завдання-7">Завдання 7</a></li>
+  </ul></li>
+  <li><a href="#оператори-break-і-continue" id="toc-оператори-break-і-continue" class="nav-link" data-scroll-target="#оператори-break-і-continue">Оператори <code>break</code> і <code>continue</code></a>
+  <ul class="collapse">
+  <li><a href="#завдання-8" id="toc-завдання-8" class="nav-link" data-scroll-target="#завдання-8">Завдання 8</a></li>
+  <li><a href="#завдання-9" id="toc-завдання-9" class="nav-link" data-scroll-target="#завдання-9">Завдання 9</a></li>
+  <li><a href="#завдання-10" id="toc-завдання-10" class="nav-link" data-scroll-target="#завдання-10">Завдання 10</a></li>
+  <li><a href="#завдання-11" id="toc-завдання-11" class="nav-link" data-scroll-target="#завдання-11">Завдання 11</a></li>
+  <li><a href="#завдання-12" id="toc-завдання-12" class="nav-link" data-scroll-target="#завдання-12">Завдання 12</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Лабораторна робота №4. Логічні значення. Умовне виконання. Цикли</h1>
+</div>
+
+<div>
+  <div class="description">
+    Документ зроблено за допомогою <a href="https://quarto.org/">Quarto</a>
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>© <a href="https://github.com/faerage">Maslyanik Oleksandr</a>, 2023 </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 6, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<p><strong>Мета:</strong> <em>освоїти роботу з логічними змінними, операторами розгалуження та операторами циклів</em></p>
+<section id="оператори-порівняння" class="level2">
+<h2 class="anchored" data-anchor-id="оператори-порівняння">Оператори порівняння</h2>
+<section id="завдання-1" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-1">Завдання 1</h3>
+<p>Використовуючи один з операторів порівняння в Python, напишіть просту дворядкову програму, яка приймає як вхідні дані параметр <code>n</code>, який є цілим числом, і друкує <code>False</code>, якщо <code>n</code> менше <code>100</code> і <code>True</code>, якщо <code>n</code> більше або дорівнює <code>100</code>.<br>
+Не створюйте жодних блоків <code>if</code>. Протестуйте свій код, використовуючи дані, надані нижче.</p>
+<div class="cell" data-execution_count="1">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">"Введіть ціле число n: "</span>))</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> n <span class="op">&gt;=</span> <span class="dv">100</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Введіть ціле число n: 55
+False</code></pre>
+</div>
+</div>
+</section>
+<section id="завдання-2" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-2">Завдання 2</h3>
+<p>Написати програму визначення найбільшого з двох дійсних чисел, використовуючи констуркцію <code>if-else</code>.</p>
+<div class="cell" data-execution_count="2">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>number1 <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">"Введіть перше дійсне число: "</span>))</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>number2 <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">"Введіть друге дійсне число: "</span>))</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> number1 <span class="op">&gt;</span> number2:</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    largest <span class="op">=</span> number1</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    largest <span class="op">=</span> number2</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Найбільше число:"</span>, largest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Введіть перше дійсне число: 55
+Введіть друге дійсне число: 12
+Найбільше число: 55.0</code></pre>
+</div>
+</div>
+</section>
+<section id="завдання-3" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-3">Завдання 3</h3>
+</section>
+</section>
+<section id="конструкції-if-else-та-if-elif-else" class="level2">
+<h2 class="anchored" data-anchor-id="конструкції-if-else-та-if-elif-else">Конструкції <code>if-else</code> та <code>if-elif-else</code></h2>
+<p>Спатифіллум, більш відомий як лілія світу або біле вітрило, є одним з найпопулярніших кімнатних рослин, що фільтрують шкідливі токсини з повітря. Деякі з токсинів, які він нейтралізує, включають бензол, формальдегід та аміак.</p>
+<p>Уявіть, що ваша комп’ютерна програма любить ці рослини. Щоразу, коли вона отримує введення у вигляді слова Spathiphyllum, вона мимоволі вигукує в консоль наступний рядок: “Spathiphyllum is the best plant ever!”</p>
+<p>Напишіть програму, яка використовує концепцію умовного виконання, приймає рядок як вхідні дані та:</p>
+<ul>
+<li>виводить на екран пропозицію “Yes - Spathiphyllum is the best plant ever!”, якщо введений рядок - “Spathiphyllum” (верхній регістр)</li>
+<li>друкує “No, I want a big Spathiphyllum!”, якщо введений рядок - “spathiphyllum” (у нижньому регістрі) виводить “Spathiphyllum! Not [input]!” в іншому випадку.<br>
+<strong>Примітка.</strong> [input] - це рядок, прийнятий як вхідний.</li>
+</ul>
+<p>Протестуйте свій код, використовуючи дані, які надано нижче.</p>
+<div class="cell" data-execution_count="3">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>user_input <span class="op">=</span> <span class="bu">input</span>(<span class="st">"Введіть рядок: "</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> user_input <span class="op">==</span> <span class="st">"Spathiphyllum"</span>:</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Yes - Spathiphyllum is the best plant ever!"</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> user_input <span class="op">==</span> <span class="st">"spathiphyllum!"</span>:</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"No, I want a big Spathiphyllum!"</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Spathiphyllum! Not </span><span class="sc">{</span>user_input<span class="sc">}</span><span class="ss">!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Введіть рядок: Spathiphyllum
+Yes - Spathiphyllum is the best plant ever!</code></pre>
+</div>
+</div>
+<section id="завдання-4" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-4">Завдання 4</h3>
+<p>Жила-була земля – земля молока та меду, населена щасливими та заможними людьми. Звісно, люди платили податки – їх щастя мало межі. Найважливіший податок, так званий податок на доходи фізичних осіб (скорочено ПДФО), повинен був сплачуватись один раз на рік та оцінювався за таким правилом:</p>
+<ul>
+<li>якщо дохід громадянина не перевищував 85528 талерів, податок становив 18% від доходу мінус 556 талерів і 2 центи (це було те, що вони називали податковими пільгами)<br>
+</li>
+<li>якщо дохід був вищим за цю суму, податок становив 14 839 талерів 2 центи плюс 32% надлишку понад 85 528 талерів.<br>
+Ваше завдання – написати калькулятор податків.</li>
+</ul>
+<p>Він повинен приймати одне значення з плаваючою комою: дохід. Потім він має вивести розрахований податок, заокруглений до повних талерів. Є функція з ім’ям <code>ound()</code>, яка виконуватиме заокруглення за вас – ви знайдете її в скелетному коді нижче.<br>
+<strong>Примітка:</strong> ця щаслива країна ніколи не повертала своїм громадянам грошей. Якщо розрахований податок був меншим за нуль, це означало б тільки повну відсутність податку (податок дорівнював нулю). Врахуйте це під час розрахунків.</p>
+<p>Подивіться на код нижче - він зчитує лише одне вхідне значення та виводить результат, тому вам потрібно завершити його деякими розумними обчисленнями.</p>
+<p>Протестуйте свій код, використовуючи тестові дані, наведені нижче.</p>
+<div class="cell" data-execution_count="4">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>income <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">"Введіть річний дохід: "</span>))</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> income <span class="op">&lt;=</span> <span class="dv">85528</span>:</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    tax <span class="op">=</span> income <span class="op">*</span> <span class="fl">0.18</span> <span class="op">-</span> <span class="fl">556.02</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    tax <span class="op">=</span> <span class="fl">14839.02</span> <span class="op">+</span> (income <span class="op">-</span> <span class="dv">85528</span>) <span class="op">*</span> <span class="fl">0.32</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> tax <span class="op">&lt;</span> <span class="dv">0</span>:</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    tax <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>rounded_tax <span class="op">=</span> <span class="bu">round</span>(tax)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Податок становить:"</span>, rounded_tax, <span class="st">"талерів"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Введіть річний дохід: 10000
+Податок становить: 1244 талерів</code></pre>
+</div>
+</div>
+</section>
+<section id="завдання-5" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-5">Завдання 5</h3>
+<p>Як ви, напевно, знаєте, з деяких астрономічних причин роки можуть бути високосними або звичайними. Перші тривають 366 днів, а другі – 365 днів.</p>
+<p>З моменту введення григоріанського календаря (1582) для визначення року використовується наступне правило:</p>
+<ul>
+<li>якщо номер року не ділиться на чотири, це звичайний рік;</li>
+<li>в іншому випадку, якщо номер року не ділиться на 100, це високосний рік;</li>
+<li>в іншому випадку, якщо номер року не ділиться на 400, це звичайний рік;</li>
+<li>інакше це високосний рік.</li>
+</ul>
+<p>Подивіться на код у редакторі – він читає лише номер року і має бути доповнений інструкціями, що реалізують тест, який описаний вище.</p>
+<p>Код має виводити одне з двох можливих повідомлень: <code>Leap year</code> або <code>Common year</code>, залежно від введеного значення.</p>
+<p>Було б добре перевірити, чи належить введений рік до григоріанської ери, і вивести попередження інакше: <code>Not within the Gregorian calendar period.</code></p>
+<p><strong>Підказка:</strong> використовуйте оператори <code>!=</code> та <code>%</code>.</p>
+<p>Протестуйте свій код, використовуючи надані нами дані.</p>
+<div class="cell" data-execution_count="1">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>year <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">"Введіть номер року: "</span>))</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> year <span class="op">&lt;</span> <span class="dv">1582</span>:</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Not within the Gregorian calendar period."</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (year <span class="op">%</span> <span class="dv">4</span> <span class="op">==</span> <span class="dv">0</span> <span class="kw">and</span> year <span class="op">%</span> <span class="dv">100</span> <span class="op">!=</span> <span class="dv">0</span>) <span class="kw">or</span> (year <span class="op">%</span> <span class="dv">400</span> <span class="op">==</span> <span class="dv">0</span>):</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Leap year"</span>)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Common year"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdin">
+<pre><code>Введіть номер року:  2000</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Leap year</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="організація-циклів-за-допомогою-while" class="level2">
+<h2 class="anchored" data-anchor-id="організація-циклів-за-допомогою-while">Організація циклів за допомогою <code>while</code></h2>
+<section id="завдання-6" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-6">Завдання 6</h3>
+<p>Молодший чарівник вибрав таємне число. Він сховав його в змінну з ім’ям <code>secret_number</code>. Він хоче, щоб кожен, хто запускає його програму, грав у гру <em>Вгадай секретний номер</em> і вгадав, яке число він вибрав для них. Ті, хто не вгадає число, назавжди застрянуть у нескінченній петлі! На жаль, він не знає, як завершити код.</p>
+<p>Ваше завдання допомогти фокуснику доповнити код у редакторі таким чином, щоб код:</p>
+<ul>
+<li>попросив користувача ввести ціле число;</li>
+<li>використовувавши цикл <code>while</code>;</li>
+<li>перевірити, чи включає введене користувачем число з числом, вибраним фокусником. Якщо число, обране користувачем, відрізняється від секретного числа чарівника, користувач повинен побачити повідомлення <code>"Ха-ха! Ви застрягли у моїй петлі!"</code> і отримати запит на повторне введення числа. Якщо число, введене користувачем, співпадає з числом, вибраним фокусником, число має бути надруковане на екрані, і фокусник повинен вимовити наступне слово: <code>«Молодець, магле! Тепер ти вільний»</code>.</li>
+</ul>
+<p>Чарівник розраховує на Вас! Не розчаровуйте його.</p>
+<p>ДОДАТКОВА ІНФОРМАЦІЯ</p>
+<p>До речі, подивитесь на функцію <code>print()</code>. Те, як ми це використовували тут, називається багаторядковим друком. Ви можете використовувати три кавички для друку рядка в кількох рядках, щоб текст був легшим для читання, або для створення спеціального текстового дизайну. Поекспериментуйте з цим.</p>
+<div class="cell" data-execution_count="2">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>secret_number <span class="op">=</span> <span class="dv">777</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="st">+================================+</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="st">| Welcome to my game, muggle!    |</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="st">| Enter an integer number        |</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="st">| and guess what number I've     |</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="st">| picked for you.                |</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="st">| So, what is the secret number? |</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="st">+================================+</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span>)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    user_input <span class="op">=</span> <span class="bu">input</span>(<span class="st">"Введіть ціле число: "</span>)</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> user_input.isdigit():</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>        user_number <span class="op">=</span> <span class="bu">int</span>(user_input)</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> user_number <span class="op">==</span> secret_number:</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="st">"Молодець, магле! Тепер ти вільний"</span>)</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="st">"Ха-ха! Ви застрягли у моїй петлі!"</span>)</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Будь ласка, введіть ціле число."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
++================================+
+| Welcome to my game, muggle!    |
+| Enter an integer number        |
+| and guess what number I've     |
+| picked for you.                |
+| So, what is the secret number? |
++================================+
+
+Ха-ха! Ви застрягли у моїй петлі!
+Ха-ха! Ви застрягли у моїй петлі!
+Ха-ха! Ви застрягли у моїй петлі!
+Ха-ха! Ви застрягли у моїй петлі!
+Молодець, магле! Тепер ти вільний</code></pre>
+</div>
+<div class="cell-output cell-output-stdin">
+<pre><code>Введіть ціле число:  3
+Введіть ціле число:  465
+Введіть ціле число:  3
+Введіть ціле число:  12
+Введіть ціле число:  777</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="організація-циклів-за-допомогою-for" class="level2">
+<h2 class="anchored" data-anchor-id="організація-циклів-за-допомогою-for">Організація циклів за допомогою <code>for</code></h2>
+<section id="завдання-7" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-7">Завдання 7</h3>
+<p>Ви знаєте, що таке Міссісіпі? Ну, це назва одного зі штатів та річок у Сполучених Штатах. Довжина річки Міссісіпі становить близько 2340 миль, що робить її другою за довжиною річкою у Сполучених Штатах (найдовшою з них є річка Міссурі). Це так багато, що одній краплі води потрібно 90 днів, щоб пройти весь її шлях!</p>
+<p>Слово Міссісіпі також використовується для дещо іншої мети: для рахунку Міссісіпі.</p>
+<p>Якщо ви не знайомі з цією фразою, ми можемо пояснити вам, що вона означає: вона використовується для підрахунку секунд.</p>
+<p>Ідея полягає в тому, що додавання слова Міссісіпі до числа при підрахунку секунд вголос змушує рахунок бути хронологічно точніше, і, отже, вимова “один Міссісіпі, два Міссісіпі, три Міссісіпі” займе приблизно три секунди! Рахунок Міссісіпі часто використовують діти, які грають у хованки, щоб переконатися, що той, хто шукає чесно, підраховує час.</p>
+<p>Ваше завдання тут дуже просте: напишіть програму, яка використовує цикл <code>for</code> для «рахунку Міссісіпі» до п’яти. Порахувавши до п’яти, програма повинна вивести на екран фінальне повідомлення <code>"Ready or not, here I come!"</code></p>
+<p>Використовуйте код, який ми надали у редакторі.</p>
+<p>ДОДАТКОВА ІНФОРМАЦІЯ</p>
+<p>Зверніть увагу, що код редактора містить два елементи, які можуть бути наразі вам не зовсім зрозумілі: оператор <code>import time</code> і метод <code>sleep()</code>. Ми незабаром про них поговоримо.</p>
+<p>Наразі ми просто хотіли, щоб ви знали, що ми імпортували модуль <code>time</code> і використовували метод <code>sleep()</code> для припинення виконання кожної наступної функції <code>print()</code> всередині циклу <code>for</code> на одну секунду, щоб повідомлення, яке виводиться на консоль, було схоже на фактичний підрахунок.</p>
+<div class="cell" data-execution_count="3">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">6</span>):</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(i, <span class="st">"Mississippi"</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="dv">1</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Ready or not, here I come!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>1 Mississippi
+2 Mississippi
+3 Mississippi
+4 Mississippi
+5 Mississippi
+Ready or not, here I come!</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="оператори-break-і-continue" class="level2">
+<h2 class="anchored" data-anchor-id="оператори-break-і-continue">Оператори <code>break</code> і <code>continue</code></h2>
+<section id="завдання-8" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-8">Завдання 8</h3>
+<p>Оператор <code>break</code> використовується для завершення/виходу з циклу.</p>
+<p>Розробте програму, яка використовує цикл <code>while</code> і постійно просить користувача ввести слово, якщо користувач не вводить <code>"chupacabra"</code> як секретне вихідне слово, і в цьому випадку повідомлення <code>"You've successfully left the loop."</code> має бути виведений на екран, а цикл має завершитись.</p>
+<p>Не друкуйте жодне із введених користувачем слів. Використовуйте концепцію умовного виконання та інструкцію <code>break</code>.</p>
+<div class="cell" data-execution_count="4">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    user_input <span class="op">=</span> <span class="bu">input</span>(<span class="st">"Введіть слово: "</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> user_input <span class="op">==</span> <span class="st">"chupacabra"</span>:</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"You've successfully left the loop."</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdin">
+<pre><code>Введіть слово:  wef
+Введіть слово:  hreth
+Введіть слово:  chupacabra</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>You've successfully left the loop.</code></pre>
+</div>
+</div>
+</section>
+<section id="завдання-9" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-9">Завдання 9</h3>
+<p>Оператор <code>continue</code> використовується для пропуску поточного блоку та переходу до наступної ітерації без виконання операторів усередині циклу.</p>
+<p>Його можна використовувати з циклами <code>while</code> та <code>for</code>.</p>
+<p>Ваше завдання тут особливе: Ви повинні створити пожирача голосних! Напишіть програму, яка використовує:</p>
+<ul>
+<li>цикл <code>for</code>;</li>
+<li>концепцію умовного виконання (<code>if-elif-else</code>)</li>
+<li>оператор <code>continue</code>.</li>
+</ul>
+<p>Ваша програма повинна:</p>
+<ul>
+<li>попросити користувача ввести слово;</li>
+<li>використовувати <code>user_word = user_word.upper()</code>, щоб перетворити слово, введене користувачем, у верхній регістр; ми поговоримо про рядкові методи та метод <code>upper()</code> у наступних лекціях;</li>
+<li>використовуйте умовне виконання та оператор <code>continue</code>, щоб “з’їсти” наступні голосні <code>A</code>, <code>E</code>, <code>I</code>, <code>O</code>, <code>U</code> у введеному слові;</li>
+<li>виведіть на екран нез’їдені літери, кожну в окремому рядку.</li>
+</ul>
+<p>Протестуйте свою програму з даними, які надані нижче.</p>
+<div class="cell" data-execution_count="5">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>user_word <span class="op">=</span> <span class="bu">input</span>(<span class="st">"Введіть слово: "</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>user_word <span class="op">=</span> user_word.upper()</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>result_word <span class="op">=</span> <span class="st">""</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> letter <span class="kw">in</span> user_word:</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> letter <span class="kw">in</span> <span class="st">"AEIOU"</span>:</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>        result_word <span class="op">+=</span> letter</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> letter <span class="kw">in</span> result_word:</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(letter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdin">
+<pre><code>Введіть слово:  Ananas</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>N
+N
+S</code></pre>
+</div>
+</div>
+</section>
+<section id="завдання-10" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-10">Завдання 10</h3>
+<p>Ваше завдання тут ще особливіше, ніж раніше: Ви повинні переробити (потворного) пожирача голосних із попереднього завдання і створити кращого, покращеного (красивого) пожирача голосних! Напишіть програму, яка використовує:</p>
+<ul>
+<li>цикл <code>for</code>;</li>
+<li>концепцію умовного виконання (<code>if-elif-else</code>)</li>
+<li>оператор <code>continue</code>.</li>
+</ul>
+<p>Ваша програма повинна:</p>
+<ul>
+<li>попросити користувача ввести слово;</li>
+<li>використовувати <code>user_word = user_word.upper()</code>, щоб перетворити слово, введене користувачем, у верхній регістр; * використовувати умовне виконання та оператор <code>continue</code> , щоб “з’їсти” наступні голосні <code>A, E, I, O, U</code> від введеного слова;</li>
+<li>присвоїти нез’їдені літери змінної <code>word_without_vowels</code> та вивести змінну на екран.</li>
+</ul>
+<p>Подивіться код нижче. Ми створили <code>word_without_vowels</code> і надали йому порожній рядок. Використовуйте операцію конкатенації, щоб попросити Python об’єднати вибрані літери у довший рядок у наступних ітераціях циклу та призначити її змінною <code>word_without_vowels</code>.</p>
+<p>Протестуйте свою програму з даними, які ми надали.</p>
+<div class="cell" data-execution_count="6">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>word_without_vowels <span class="op">=</span> <span class="st">""</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>user_word <span class="op">=</span> <span class="bu">input</span>(<span class="st">"Введіть слово: "</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>user_word <span class="op">=</span> user_word.upper()</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> letter <span class="kw">in</span> user_word:</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> letter <span class="kw">in</span> <span class="st">"AEIOU"</span>:</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>        word_without_vowels <span class="op">+=</span> letter</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(word_without_vowels)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdin">
+<pre><code>Введіть слово:  Ananas</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>NNS</code></pre>
+</div>
+</div>
+</section>
+<section id="завдання-11" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-11">Завдання 11</h3>
+<p>Послухайте цю історію: хлопчик та його батько, програміст, грають із дерев’яними кубиками. Вони будують піраміду (рис. 1).</p>
+<p>Їхня піраміда трохи дивна, тому що насправді це стіна у формі піраміди – вона плоска. Піраміда складається за одним простим принципом: кожен нижній шар містить на один блок більше, ніж шар вище.</p>
+<p>На рис. 1 показано правило, що використовується будівельниками:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="lab_4_Maslianyk_files/figure-html/142f3a87-1-a41b02e3-9575-4e30-949d-2a3d3a0cdd64.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Рис. 1</figcaption>
+</figure>
+</div>
+<p>Ваше завдання – написати програму, яка зчитує кількість блоків, що є у будівельників, та виводить висоту піраміди, яку можна побудувати з цих блоків.</p>
+<p><strong>Примітка:</strong> висота вимірюється кількістю повністю завершених шарів –- якщо будівельники не мають достатньої кількості блоків та не можуть завершити наступний шар, вони негайно закінчують свою роботу.</p>
+<p>Протестуйте свій код, використовуючи надані нами дані.</p>
+<div class="cell" data-execution_count="8">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>blocks <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">"Введіть кількість блоків: "</span>))</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>height <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> blocks <span class="op">&gt;=</span> (height <span class="op">+</span> <span class="dv">1</span>) <span class="op">*</span> (height <span class="op">+</span> <span class="dv">1</span>):</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    height <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    blocks <span class="op">-=</span> height <span class="op">*</span> height</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Максимальна висота піраміди, яку можна побудувати з"</span>, blocks <span class="op">+</span> height, <span class="st">"блоків, дорівнює"</span>, height, <span class="st">"повним шарам."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdin">
+<pre><code>Введіть кількість блоків:  6</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Максимальна висота піраміди, яку можна побудувати з 3 блоків, дорівнює 2 повним шарам.</code></pre>
+</div>
+</div>
+</section>
+<section id="завдання-12" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-12">Завдання 12</h3>
+<p>1937 року німецький математик Лотар Коллатц сформулював інтригуючу гіпотезу (вона досі не доведена), яку можна описати так:</p>
+<ul>
+<li>візьміть будь-яке невід’ємне та ненульове ціле число та назвіть його <code>c0</code>;</li>
+<li>якщо воно парне, обчисліть нове <code>c0</code> як <code>c0÷2</code>;</li>
+<li>в іншому випадку, якщо воно непарне, висиліть нове <code>c0</code>як <code>3 × c0 + 1</code>;</li>
+<li>якщо <code>c0 ≠ 1</code>, поверніться до пункту 2.</li>
+</ul>
+<p>Гіпотеза свідчить, що незалежно від початкового значення <code>c0</code> воно завжди дорівнюватиме <code>1</code>.</p>
+<p>Звичайно, використання комп’ютера для доведення гіпотези для будь-якого натурального числа – надзвичайно складне завдання (для цього може знадобитися навіть штучний інтелект), але ви можете використовувати Python для перевірки деяких окремих чисел. Можливо, Ви навіть знайдете те, що спростує гіпотезу.</p>
+<p>Напишіть програму, яка зчитує одне натуральне число і виконує вказані вище кроки до тих пір, поки <code>c0</code> залишається відмінним від <code>1</code>. Ми також хочемо, щоб ви підрахували кроки, необхідні для досягнення мети. Ваш код також повинен виводити усі проміжні значення <code>c0</code>.</p>
+<p>Підказка: найважливіша частина проблеми –- як перетворити ідею Коллатца на цикл <code>while</code> – це ключ до успіху.</p>
+<p>Протестуйте свій код, використовуючи надані нами дані.</p>
+<div class="cell" data-execution_count="9">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>c0 <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">"Введіть натуральне число: "</span>))</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>steps <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> c0 <span class="op">!=</span> <span class="dv">1</span>:</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> c0 <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>        c0 <span class="op">//=</span> <span class="dv">2</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>        c0 <span class="op">=</span> <span class="dv">3</span> <span class="op">*</span> c0 <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    steps <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(c0)</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Кількість кроків:"</span>, steps)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdin">
+<pre><code>Введіть натуральне число:  324</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>162
+81
+244
+122
+61
+184
+92
+46
+23
+70
+35
+106
+53
+160
+80
+40
+20
+10
+5
+16
+8
+4
+2
+1
+Кількість кроків: 24</code></pre>
+</div>
+</div>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
